@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="UnQLiteExplorer.Views.Favorites"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Themes/Metro.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Content="Favorite Data Stores" 
+                   Foreground="{StaticResource RibbonThemeBrush}"
+               x:Name="Title" FontSize="23" />
+        </StackPanel>
+        <ListBox Grid.Row="1" 
+                 Style="{StaticResource MetroListBox}"
+                 BorderBrush="{StaticResource TransparentBrush}"
+                 Padding="0,5"
+                 Margin="0,0,0,0"
+                 SelectionMode="Single"
+                 SnapsToDevicePixels="True"
+                 RenderOptions.BitmapScalingMode="NearestNeighbor"
+                 ClipToBounds="True"
+                 SelectionChanged="FavoriteDatastoreSelectionChanged"
+                 SelectedItem="{Binding SelectedFavoriteDatastore, UpdateSourceTrigger=PropertyChanged}"
+                 ItemsSource="{Binding DatastoreItems, UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Images/datastore32.png"
+                               Style="{StaticResource FixedImage32}"/>
+                        <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                            <TextBlock Text="{Binding Name}" FontSize="17" />
+                            <TextBlock Text="{Binding FullName}" FontSize="13" />
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <DataGrid Grid.Row="1" Background="White"
+                  Visibility="Collapsed"
+                  x:Name="DatastoreGrid"
+                  SnapsToDevicePixels="True"
+                  Margin="0,10,0,0"
+                  AutoGenerateColumns="False"
+                  Style="{StaticResource MetroDataGrid}"
+                  RenderOptions.BitmapScalingMode="NearestNeighbor"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="True"
+                  CanUserReorderColumns="False"
+                  CanUserSortColumns="False"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding DatastoreItems, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Favorite number" MinWidth="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../Images/number16.png"
+                                       Style="{StaticResource FixedImage16}"/>
+                                <TextBlock Text="{Binding FavoriteNumber}"
+                                           VerticalAlignment="Center"
+                                           Margin="5,0,0,0"/>
+                            </StackPanel>                            
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Name" MinWidth="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"
+                                       VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Full path" MinWidth="400">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding FullName}" 
+                                       TextWrapping="Wrap"
+                                       VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

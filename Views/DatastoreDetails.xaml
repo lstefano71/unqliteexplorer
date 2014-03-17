@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="UnQLiteExplorer.Views.DatastoreDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Themes/Metro.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Label Content="Datastore: " 
+               x:Name="Title" FontSize="19" />
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/browse16.png"
+                       Style="{StaticResource FixedImage16}"/>
+                <Label x:Name="FullName" Foreground="Gray" Margin="5,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+        
+        <DataGrid Grid.Row="1" Background="White"
+                  x:Name="DatastoreGrid"
+                  SnapsToDevicePixels="True"
+                  Margin="0,0,0,0"
+                  AutoGenerateColumns="False"
+                  Style="{StaticResource MetroDataGrid}"
+                  RenderOptions.BitmapScalingMode="NearestNeighbor"
+                  CanUserAddRows="True"
+                  CanUserDeleteRows="True"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="True"
+                  CanUserReorderColumns="False"
+                  CanUserSortColumns="False"
+                  CellEditEnding="DatastoreCellEditing"
+                  ItemsSource="{Binding DatastoreItems, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Key" MinWidth="300">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../Images/key16.png"
+                                       Style="{StaticResource FixedImage16}"/>
+                                <TextBlock Text="{Binding Key}"
+                                           VerticalAlignment="Center"
+                                           Margin="5,0,0,0"/>
+                            </StackPanel>                            
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <!--<DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Key}"
+                                     Padding="5"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>-->
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Value" MinWidth="300">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Value}"
+                                       VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Value}"
+                                     Padding="5"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

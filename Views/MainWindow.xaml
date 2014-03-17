@@ -1,0 +1,213 @@
+﻿<Fluent:MetroWindow x:Class="UnQLiteExplorer.Views.MainWindow"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+                    xmlns:controls="clr-namespace:UnQLiteExplorer.Views"
+                    Title="UnQLite Explorer"
+                    Icon="../Images/icon32.png"
+                    RibbonThemeColor="{DynamicResource RibbonThemeBrush}" 
+                    WindowStartupLocation="CenterScreen"
+                    WindowState="Maximized"
+                    Closing="MainWindowClosing"
+                    Height="479.3" Width="923">
+    <Fluent:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Themes/Metro.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="FavoriteDatastoreItemTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Images/datastore32.png"
+                               Style="{StaticResource FixedImage32}"/>
+                    <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                        <TextBlock Text="{Binding Name}" FontSize="17" />
+                        <TextBlock Text="{Binding FullName}" FontSize="13" />
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Fluent:MetroWindow.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="884*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Fluent:Ribbon Grid.Row="0" Grid.ColumnSpan="2"
+                       x:Name="Ribbon"
+                       IsQuickAccessToolBarVisible="True">
+            <Fluent:Ribbon.Menu>
+                <Fluent:Backstage Header="FILE">
+                    <Fluent:BackstageTabControl>
+                        <Fluent:BackstageTabItem Header="Info">
+                            <StackPanel Margin="30,40,20,20">
+                                <Label Content="Product Information" FontSize="29" />
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <Image Source="../Images/icon32.png" 
+                                           Style="{StaticResource FixedImage32}" />
+                                    <Label Content="UnQLite Explorer" FontSize="25" Margin="10,0,0,0"
+                                           Foreground="{DynamicResource RibbonThemeBrush}" />
+                                </StackPanel>
+                                <Label Content="version:      1.0" Style="{StaticResource TitleLabel}" />
+                                <Label Content="Author:       Wenjie Zhang" Style="{StaticResource TitleLabel}" />
+                                <Label Content="Tech Support: zhangwj@spdbfl.com.cn" Style="{StaticResource TitleLabel}"/>
+                                <Fluent:Button IsDefinitive="False"
+                                               IsEnabled="True"
+                                               Margin="5,10"
+                                               Header="About UnQLiteExplorer"
+                                               Height="100" Width="100"
+                                               Style="{DynamicResource ButtonBackstageStyle}"
+                                               HorizontalAlignment="Left"
+                                               LargeIcon="../Images/Infoicon.png" 
+                                               Command="{Binding AboutCommand}"/>
+                            </StackPanel>
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="Open">
+                            <StackPanel Margin="30,40,20,20">
+                                <Label Content="Open" FontSize="29" />
+                                <TabControl Style="{DynamicResource InnerBackstageTabControlStyle}">
+                                    <!--<Fluent:SeparatorTabItem Header="Test1" />-->
+                                    <TabItem>
+                                        <TabItem.HeaderTemplate>
+                                            <DataTemplate>
+                                                <Border Padding="5">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image Source="../Images/favorites32.png" 
+                                                               Style="{StaticResource FixedImage32}"
+                                                               Margin="10,0,0,0"/>
+                                                        <Label Content="Favorite Data Stores" FontSize="17"
+                                                               Margin="10,0,0,0"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </TabItem.HeaderTemplate>
+                                        <StackPanel Margin="20,0,20,10">
+                                            <Label Content="Favorite Data Stores"
+                                                   Foreground="{StaticResource RibbonThemeBrush}"
+                                                   x:Name="Title" FontSize="23" />
+                                            <ListBox Grid.Row="1" 
+                                                     Style="{StaticResource MetroListBox}"
+                                                     BorderBrush="{StaticResource TransparentBrush}"
+                                                     Padding="0,5"
+                                                     Margin="0,0,0,0"
+                                                     SelectionMode="Single"
+                                                     SnapsToDevicePixels="True"
+                                                     RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                                     ClipToBounds="True"
+                                                     MouseLeftButtonUp="FavoriteDatastoreMouseLeftButtonUp"
+                                                     ItemTemplate="{StaticResource FavoriteDatastoreItemTemplate}"
+                                                     SelectedItem="{Binding SelectedFavoriteDatastore, UpdateSourceTrigger=PropertyChanged}"
+                                                     ItemsSource="{Binding DatastoreItems, UpdateSourceTrigger=PropertyChanged}">
+                                            </ListBox>
+                                        </StackPanel>
+                                    </TabItem>
+                                    <!--<Fluent:SeparatorTabItem Header="Test2" />
+                                <TabItem Header="4">
+                                </TabItem>-->
+                                </TabControl>
+                            </StackPanel>
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="Close" 
+                                                 MouseLeftButtonUp="ExitBackstageTabItemClick" />
+                    </Fluent:BackstageTabControl>
+                </Fluent:Backstage>
+            </Fluent:Ribbon.Menu>
+            <Fluent:Ribbon.QuickAccessItems>
+                <Fluent:QuickAccessMenuItem IsChecked="true" 
+                                            Target="{Binding ElementName=NewDatastoreButton}" />
+                <Fluent:QuickAccessMenuItem IsChecked="true">
+                    <Fluent:Button Header="Exit" Icon="../Images/exit16.png"
+                                   Click="OnExitClick"/>
+                </Fluent:QuickAccessMenuItem>
+            </Fluent:Ribbon.QuickAccessItems>
+            <Fluent:RibbonTabItem Header="UNQLITE"> 
+                <Fluent:RibbonGroupBox Header="New">
+                    <Fluent:Button Header="New Data Store" x:Name="NewDatastoreButton"
+                                   Icon="../Images/newdatastore16.png"
+                                   LargeIcon="../Images/newdatastore32.png"
+                                   Command="{Binding NewDatastoreCommand}"/>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Connection">
+                    <Fluent:Button Header="Connect Data Store"
+                                   LargeIcon="../Images/datastore32.png"
+                                   Command="{Binding ConnectDatastoreCommand}"/>
+                    <Fluent:DropDownButton Header="Disconnect" 
+                                           LargeIcon="../Images/disconnect32.png">
+                        <Fluent:Gallery MaxItemsInRow="3">
+                            <Fluent:Button Header="Disconnect Data Store"
+                                   LargeIcon="../Images/disconnect32.png"
+                                   Command="{Binding DisconnectCommand}"/>
+                            <Fluent:Button Header="Remove Data Store"
+                                   LargeIcon="../Images/removedatastore32.png"
+                                   Command="{Binding RemoveConnectionCommand}"/>
+                        </Fluent:Gallery>
+                    </Fluent:DropDownButton>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Favorite">
+                    <Fluent:Button Header="Show/Hide Favorites"
+                                   LargeIcon="../Images/showhide32.png"
+                                   Command="{Binding ShowFavoritesCommand}"/>
+                    <Fluent:Button Header="Add to favorite"
+                                   Fluent:RibbonAttachedProperties.RibbonSizeDefinition="Middle"
+                                   Icon="../Images/add16.png"
+                                   Command="{Binding AddToFavoriteConnectionCommand}"/>
+                    <Fluent:Button Header="Remove from favorite"
+                                   Fluent:RibbonAttachedProperties.RibbonSizeDefinition="Middle"
+                                   Icon="../Images/remove16.png"
+                                   Command="{Binding RemoveFromFavoriteCommand}"/>
+                    <Fluent:Button Header="Clear favorites"
+                                   Fluent:RibbonAttachedProperties.RibbonSizeDefinition="Middle"
+                                   Icon="../Images/cleanall16.png"
+                                   Command="{Binding ClearFavoriteCommand}"/>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Edit">
+                    <Fluent:Button Header="Append New Item"
+                                   LargeIcon="../Images/appendnewitem32.png"
+                                   Command="{Binding AppendNewItemCommand}"
+                                   IsEnabled="{Binding IsEditEnabled}"/>
+                    <Fluent:Button Header="Delete Item"
+                                   LargeIcon="../Images/deleteitem32.png"
+                                   Command="{Binding DeleteItemCommand}"
+                                   IsEnabled="{Binding IsEditEnabled}"/>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Refresh">
+                    <Fluent:Button Header="Refresh Items"
+                                   LargeIcon="../Images/updatedatastore32.png"
+                                   Command="{Binding RefreshCommand}"/>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+        </Fluent:Ribbon>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TreeView x:Name="DatastoreView"
+                      Grid.Column="0" 
+                      Padding="5" 
+                      BorderThickness="0"
+                      Background="{StaticResource MsBackgroundBrush}"
+                      SelectedItemChanged="DatastoreSelectionChanged">
+                <TreeViewItem x:Name="DatastoreRoot">
+                    <TreeViewItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/dscol16.png"
+                                   Style="{StaticResource FixedImage16}"/>
+                            <Label Content="Data Store Collection" 
+                                   FontWeight="Normal"/>
+                        </StackPanel>
+                    </TreeViewItem.Header>
+                </TreeViewItem>
+            </TreeView>
+            <GridSplitter Grid.Column="0" Style="{StaticResource MetroSplitter}"/>
+            <ContentControl Grid.Column="1" Margin="10"
+                            Content="{Binding PresentingContent}">
+
+            </ContentControl>
+
+        </Grid>
+    </Grid>
+</Fluent:MetroWindow>

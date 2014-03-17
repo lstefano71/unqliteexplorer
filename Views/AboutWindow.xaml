@@ -1,0 +1,73 @@
+﻿<Fluent:MetroWindow  
+    x:Class="UnQLiteExplorer.Views.AboutWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+    RibbonThemeColor="{DynamicResource RibbonThemeBrush}" 
+    Title="Connect to Data Store" 
+    Icon="../Images/icon32.png"
+    ResizeMode="NoResize"
+    WindowState="Normal"
+    WindowStartupLocation="CenterScreen"
+    Height="443" Width="577.849">
+    <Fluent:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Themes/Metro.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="DarkLabel" TargetType="Label">
+                <Setter Property="Foreground" Value="{StaticResource DefaultFontBrush}" />
+                <Setter Property="Width" Value="100" />
+            </Style>
+        </ResourceDictionary>
+    </Fluent:MetroWindow.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="1">
+            <Label Content="Project ID: B5A8530B-C619-4941-89E8-BD891238002E" 
+                   Foreground="{StaticResource RibbonThemeBrush}"/>
+            <Label>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                              BorderBrush="{StaticResource RibbonBorderBrush}"
+                              BorderThickness="1"
+                              SnapsToDevicePixels="True"
+                              RenderOptions.BitmapScalingMode="NearestNeighbor">
+                    <TextBlock Padding="5" TextWrapping="Wrap">
+                        UnQLite Explorer is a tool for viewing and editing key-values stored in unqlite databases.
+                        UnQLite Explorer uses the System.Data.Unqlite assembly, which is a wrapper to use Unqlite library in C# (or any CLR compatible language).
+                        <LineBreak /><LineBreak />
+                        UnQLite is a in-process software library which implements a self-contained, serverless, zero-configuration, transactional NoSQL database engine.
+                        UnQLite is a document store database similar to MongoDB, Redis, CouchDB etc. as well a standard Key/Value store similar to BerkeleyDB, LevelDB, etc.
+                        UnQLite is an embedded NoSQL (Key/Value store and Document-store) database engine. Unlike most other NoSQL databases, UnQLite does not have a separate server process. 
+                        UnQLite reads and writes directly to ordinary disk files. A complete database with multiple collections, is contained in a single disk file.
+                        The database file format is cross-platform, you can freely copy a database between 32-bit and 64-bit systems or between big-endian and little-endian architectures.
+                        For more info about Unqlite check the official page: 
+                        <Hyperlink IsEnabled="True" Click="Hyperlink_Click">http://www.unqlite.org/</Hyperlink>
+                    </TextBlock>
+                </ScrollViewer>                
+            </Label>
+            
+        </StackPanel>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
+            <Button Style="{StaticResource MetroButton}"
+                    Width="120" Height="25" 
+                    Content="OK"
+                    Click="ConfirmClick"
+                    BorderBrush="{StaticResource RibbonBorderBrush}"
+                    BorderThickness="1" />
+            <Button Style="{StaticResource MetroButton}"
+                    Margin="0,10,0,0"
+                    Width="120" Height="25" 
+                    Content="System Info..."
+                    Click="SystemInfoClick"
+                    BorderBrush="{StaticResource RibbonBorderBrush}"
+                    BorderThickness="1" />
+        </StackPanel>
+    </Grid>
+</Fluent:MetroWindow>

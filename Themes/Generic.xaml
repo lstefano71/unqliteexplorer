@@ -1,0 +1,97 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent">
+    <SolidColorBrush x:Key="DefaultThemeBrush" Color="#FFFF6600" />
+    <SolidColorBrush x:Key="RibbonThemeBrush" Color="#F3AF1C" />
+    <SolidColorBrush x:Key="TransparentBrush" Color="#00000000" />
+    <SolidColorBrush x:Key="ButtonHoveredBackgroundBrush" Color="#FFE4EEF6" />
+    <SolidColorBrush x:Key="ButtonPressedBackgroundBrush" Color="#FFBCD4E9" />
+    <SolidColorBrush x:Key="RibbonBorderBrush" Color="#FFD4D4D4" />
+    <!--<SolidColorBrush x:Key="TreeViewItemSelectedBrush" Color="#FFE1E1E1" />-->
+    <!--<SolidColorBrush x:Key="TreeViewItemHoverBrush" Color="#FFD7E2EF" />-->
+    <SolidColorBrush x:Key="TreeViewItemHoverBrush" Color="#FFFDF5E3" />
+    <SolidColorBrush x:Key="TreeViewItemSelectedBrush" Color="#FFFBE7BA" />
+    <Color x:Key="SelectedBackgroundColor">#FFFBE7BA</Color>
+    <Color x:Key="HoveredBackgroundColor">#FFFDF5E3</Color>
+    <SolidColorBrush x:Key="DefaultFontBrush" Color="#FF333333" />
+    <SolidColorBrush x:Key="DarkBackgroundBrush" Color="#FF535353" />
+    <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
+    <SolidColorBrush x:Key="ItemHoveredBrush" Color="#FFE6F2FA" />
+    <SolidColorBrush x:Key="ItemSelectedBrush" Color="#FFCDE6F7" />
+    
+    <Style x:Key="FixedImage" TargetType="{x:Type Image}">
+        <Setter Property="Stretch" Value="None" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
+    </Style>
+    <Style x:Key="FixedImage16" TargetType="{x:Type Image}" 
+           BasedOn="{StaticResource FixedImage}">
+        <Setter Property="Width" Value="16" />
+        <Setter Property="Height" Value="16" />
+    </Style>
+    <Style x:Key="FixedImage32" TargetType="{x:Type Image}"
+           BasedOn="{StaticResource FixedImage}">
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="32" />
+    </Style>
+    
+    <Style x:Key="TitleLabel" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="#FF333333" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="RequiredFieldLabel" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="Red" />
+        <Setter Property="FontWeight"  Value="SemiBold" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Content" Value="*" />
+    </Style>
+
+    <Style x:Key="ReadOnlyTextBox" TargetType="{x:Type Fluent:TextBox}">
+        <Setter Property="BorderBrush" Value="{Binding RibbonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="ClipToBounds" Value="True" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
+        <Setter Property="IsReadOnly" Value="True" />
+    </Style>
+
+    <Style x:Key="{x:Type Fluent:TextBox}" TargetType="{x:Type Fluent:TextBox}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="ClipToBounds" Value="True" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
+    </Style>
+    <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="ClipToBounds" Value="True" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
+        <Setter Property="BorderBrush" Value="{StaticResource RibbonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>       
+
+    <Style x:Key="HorizontalSeparator" TargetType="Separator">
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="ClipToBounds" Value="True" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
+        <Setter Property="Background" Value="{StaticResource RibbonBorderBrush}" />
+    </Style>
+    <Style x:Key="VerticalSeparator" TargetType="Separator" 
+           BasedOn="{StaticResource HorizontalSeparator}">
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <TransformGroup.Children>
+                        <TransformCollection>
+                            <RotateTransform Angle="90"/>
+                        </TransformCollection>
+                    </TransformGroup.Children>
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

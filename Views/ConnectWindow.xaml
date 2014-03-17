@@ -1,0 +1,98 @@
+﻿<Fluent:MetroWindow  
+    x:Class="UnQLiteExplorer.Views.ConnectWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+    RibbonThemeColor="{DynamicResource RibbonThemeBrush}" 
+    Title="Connect to Data Store" 
+    Icon="../Images/icon32.png"
+    ResizeMode="NoResize"
+    WindowState="Normal"
+    KeyDown="MetroWindow_KeyDown"
+    WindowStartupLocation="CenterScreen"
+    Height="265" Width="601.849">
+    <Fluent:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Themes/Metro.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="DarkLabel" TargetType="Label">
+                <Setter Property="Foreground" Value="{StaticResource DefaultFontBrush}" />
+                <Setter Property="Width" Value="100" />
+            </Style>
+        </ResourceDictionary>
+    </Fluent:MetroWindow.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Padding="0,0,0,5" Style="{StaticResource MetroToolBar}"
+                Margin="0,0,0,10" BorderThickness="0,0,0,1">
+            <DockPanel LastChildFill="False">
+                <Image Source="../Images/datastore32.png" 
+                   DockPanel.Dock="Left"
+                   Style="{StaticResource FixedImage32}"/>
+                <Label Content="Connect to Data Store"
+                   Style="{StaticResource TitleLabel}"/>
+                <Fluent:Button Fluent:RibbonAttachedProperties.RibbonSizeDefinition="Middle"
+                           Header="Cancel" DockPanel.Dock="Right"
+                               Command="{Binding ExitCommand}"
+                           Icon="../Images/exit16.png"/>
+                <Separator Style="{StaticResource VerticalSeparator}"
+                       DockPanel.Dock="Right" Margin="5"/>
+                <Fluent:Button Fluent:RibbonAttachedProperties.RibbonSizeDefinition="Middle"
+                                Header="OK" DockPanel.Dock="Right"
+                                Icon="../Images/OK16.png"
+                               Command="{Binding ConfirmCommand}"/>
+            </DockPanel>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" LastChildFill="False">
+                <Fluent:RadioButton Header="Connect to existing data store"
+                                    GroupName="ConnectDataStoreGroup"
+                                    Command="{Binding CheckedCommand}"
+                                    IsChecked="{Binding IsConnectToExistingDatastoreChecked, FallbackValue=True}"
+                                    DockPanel.Dock="Top"/>
+                <StackPanel Orientation="Horizontal" Margin="15,0,0,0" 
+                            IsEnabled="{Binding IsConnectExistingDatastoreEnabled}">
+                    <Label Content="Name: " Width="70" />
+                    <Fluent:TextBox Width="400" Text="{Binding ExistingDatastoreName}" />
+                    <Fluent:Button Fluent:RibbonAttachedProperties.RibbonSizeDefinition="Middle"
+                                   Header="Browse" Margin="5,0,0,0"
+                                   Icon="../Images/browse16.png"
+                                   Command="{Binding BrowseExistingDatastoreCommand}"/>
+                </StackPanel>                
+            </DockPanel>
+            <DockPanel Grid.Row="1" Margin="0,10,0,0">
+                <Fluent:RadioButton Header="Create new data store" 
+                                    DockPanel.Dock="Top"
+                                    Command="{Binding CheckedCommand}"
+                                    IsChecked="{Binding IsCreateNewDatastoreChecked}"
+                                    GroupName="ConnectDataStoreGroup"/>
+                <DockPanel Margin="15,0,0,0" 
+                           IsEnabled="{Binding IsCreateNewDatastoreEnabled}">
+                    <StackPanel Orientation="Horizontal"
+                                DockPanel.Dock="Top">
+                        <Label Content="Name: " Width="70"/>
+                        <Fluent:TextBox Width="400" Text="{Binding NewDatastoreName}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                DockPanel.Dock="Top">
+                        <Label Content="Location: " Width="70" />
+                        <Fluent:TextBox Width="400" />
+                        <Fluent:Button Header="Browse" Icon="../Images/browse16.png" Margin="5,0,0,0"
+                                       Fluent:RibbonAttachedProperties.RibbonSizeDefinition="Middle" 
+                                       Command="{Binding BrowseNewDatastoreLocationCommand}"/>
+                    </StackPanel>
+                </DockPanel>
+            </DockPanel>
+            
+        </Grid>
+        
+    </Grid>
+</Fluent:MetroWindow>
